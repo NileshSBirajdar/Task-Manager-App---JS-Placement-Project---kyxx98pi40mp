@@ -4,9 +4,11 @@ let boxes = document.querySelectorAll(".scroll");
 let description = document.getElementById("description");
 let currTasksDesc;
 let drag = null;
+let taskDisk = document.getElementById("task_description");
 btn.onclick = function () {
   if (inp.value != '') {
     const newTask = document.createElement("div");
+
     newTask.classList.add("TaskWrapper", "item")
     newTask.setAttribute("draggable", "true");
     const pin = document.createElement("div");
@@ -15,6 +17,7 @@ btn.onclick = function () {
     const task = document.createElement("div");
     task.innerHTML = inp.value;
     task.classList.add("task");
+    
 
     const paraDiv = document.createElement("div");
     paraDiv.setAttribute("id", "paraDiv");
@@ -28,7 +31,7 @@ btn.onclick = function () {
     circle.addEventListener("click", () => {
       document.getElementById("popup-1").classList.add("active");
       newTask.classList.add("delete");
-    });
+     });
     newTask.appendChild(pin);
     newTask.appendChild(task);
     newTask.appendChild(paraDiv);
@@ -36,10 +39,13 @@ btn.onclick = function () {
     newTask.appendChild(circle);
     inp.value = '';
     boxes[0].appendChild(newTask);
-    newTask.addEventListener("click", () => {
+    newTask.addEventListener("click", (event) => {
       document.getElementById("popup-1").classList.toggle("active");
       description.focus();
       currTasksDesc = para;
+      console.log(taskDisk);
+      taskDisk=event.target.innerText;
+      console.log(taskDisk);
     });
   }
 
@@ -77,6 +83,7 @@ function dragItem() {
 
 const togglePopup = () => {
   document.getElementById("popup-1").classList.toggle("active");
+  description.value = "";
 }
 
 function save() {
